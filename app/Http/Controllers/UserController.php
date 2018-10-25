@@ -81,6 +81,26 @@ class UserController extends Controller
     public function store(Request $request)
     {
         // submitting form so request
+        //shortcut method must me use $fillable in User Model which is inside app folder ok
+        $user = new User();
+        // $user = new User;
+       // $user = Create($request->all());
+      // left side is table column name and right side is form field name
+        $user ->name = $request->get('username');
+        $user ->email = $request->get('email');
+         $user ->password= $request->get('password');
+        
+        // or simply write
+         $user ->contact_no = $request->contact_no;
+         $user ->address = $request->address;
+        // $user ->gender = $request->gender;
+         $user ->status = $request->status;
+         $user->save();
+
+
+
+
+
     }
    
     public function delete($id)
