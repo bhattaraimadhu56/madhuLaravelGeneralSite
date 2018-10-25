@@ -96,12 +96,27 @@ class UserController extends Controller
         // $user ->gender = $request->gender;
          $user ->status = $request->status;
          $user->save();
+         // after saving redirecting to list of users
+         //return redirect()->route('admin.user.select');
+         // after saving redirecting to list of users with toast notification
+         if ($user->save()){
+            $notification = array('message'=>'User Added Successfully!!',
+                          'alert-type'=>'success');   
+                //For notification write this
+                // return redirect()->back()->with($notification); 
+                 //for inserting data showing all data redirecting all to userlist
 
-
-
-
+                return redirect()->route('admin.user.select')->with($notification);
+                // so we write the code of toast message in redirecting page i.e admin.user.select.blade.php ok
+            }
+            else{
+            $notification = array('message'=>'Sorry! Unable to insert in database!!',
+                          'alert-type'=>'error');      
+            //return redirect()->back()->withErrors($validator)->withInput();
+            }
 
     }
+
    
     public function delete($id)
     {

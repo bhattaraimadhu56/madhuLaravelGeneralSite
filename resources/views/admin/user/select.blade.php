@@ -1,5 +1,6 @@
 @extends('admin.layout.adminMasterLayout')
 
+
 @section('content')
 
 <div class="main-content">
@@ -89,8 +90,54 @@
 	</div><!-- /.page-content -->	
 </div><!-- /.main-content -->
 @endsection
-				
-							
+
+@section('toastMessage')
+<!-- For Toast Message-->
+{{-- normally write in header section--}}
+		<link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
+{{-- normally write in body section--}}
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+		{{-- For Toast Message --}}
+	<script>
+	@if(Session::has('message'))
+
+	var type="{{Session::get('alert-type','info')}}";
+
+
+	switch(type){
+	case 'info':
+	toastr.info("{{Session::get('message')}}");
+	break;
+
+	case 'success':
+	toastr.success("{{Session::get('message')}}");
+	break;
+
+	case 'warning':
+	toastr.warning("{{Session::get('message')}}");
+	break;
+
+	case 'error':
+	toastr.error("{{Session::get('message')}}");
+	break;
+	toastr.info("{{ Session::get('message') }}");
+	break;
+	case 'success':
+	toastr.success("{{ Session::get('message') }}");
+	break;
+	case 'warning':
+	toastr.warning("{{ Session::get('message') }}");
+	break;
+	case 'error':
+	toastr.error("{{ Session::get('message') }}");
+	break;
+	}
+	@endif
+
+	</script>		
+	@endsection						
 					
 										
 								
@@ -99,4 +146,3 @@
 												
 										
 
-		
