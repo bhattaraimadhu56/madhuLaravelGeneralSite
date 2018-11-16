@@ -62,21 +62,25 @@ s
 							<th class="align-center">Action</th>
 						</tr>
 						{{-- Method 1 Using  $DatafromUserAnyName within with function to carry dta to view --}}
-						{{-- @foreach($DatafromUserAnyName as $key=>$a) --}}
-						{{-- @foreach($DatafromUserAnyName as $a) --}}
+						{{-- @foreach($DatafromUserAnyName as $key=>$row) --}}
+						{{-- @foreach($DatafromUserAnyName as $row) --}}
 
 						{{-- Method 2 Using Compact Function --}}
-						{{-- @foreach($data as $key=>$a) --}}
-						@foreach($data as $a)
+						{{-- @foreach($data as $key=>$row) --}}
+
+					@if ($data->isEmpty())
+						<tr><td colspan="6"><h3  align="center">No Record Found</h3></td></tr>
+					@else
+						@foreach($data as $row)
 						<tr> 
 							<td><label class="pos-rel">
 												<input type="checkbox" class="ace" />
-												<span class="lbl"></span></td>
-							<td>{{ $a->created_at }}</td>
-							<td>{{ $a->email }}</td>
+									<span class="lbl"></span></label></td>
+							<td>{{ $row->created_at }}</td>
+							<td>{{ $row->email }}</td>
 							<td>
 
-							 @if($a->status==1)
+							 @if($row->status==1)
 							 {{-- will show green (success) color if active --}}
 							 <span class="label label-sm label-success">Active</span>
 							 @else
@@ -100,9 +104,9 @@ s
 
 
                                 {{--By URL method--}}
-                                <a href="{{URL::to('admin/user/edit/'.$a->id)}}">
+                                <a href="{{URL::to('admin/user/edit/'.$row->id)}}">
                                     {{--By Route method--}}
-                                                    {{--<a href="{{route('admin.user.edit'.$a->id)}}">--}}
+                                                    {{--<a href="{{route('admin.user.edit'.$row->id)}}">--}}
                                                        <b class="btn btn-xs btn-warning"> <i class="glyphicon glyphicon-pencil">Edit</i>
                                                        </b>
                                                     </a>
@@ -112,8 +116,8 @@ s
 
 
                                                          {{--By URL method--}}
-														<a href="{{URL::to('admin/user/delete/'.$a->id)}}"
-                                                        {{--<a href="{{ route('admin.user.delete',['id'=>$a->id])}}"--}}
+														<a href="{{URL::to('admin/user/delete/'.$row->id)}}"
+                                                        {{--<a href="{{ route('admin.user.delete',['id'=>$row->id])}}"--}}
 														   onclick=" return confirm('Are you sure, You want to delete permanently?')">
                                                             <b class="btn btn-xs btn-danger">   <i class="ace-icon fa fa-trash-o bigger-120">Delete</i>
                                                             </b>
@@ -126,6 +130,8 @@ s
 										</td>
 						</tr>					
 						@endforeach
+						@endif
+
 				</table>						
 			</div>	<!-- end of col-xs-12 div -->
 		</div><!-- row div -->	

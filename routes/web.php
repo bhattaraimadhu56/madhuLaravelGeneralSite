@@ -52,6 +52,13 @@ Route::group(['prefix'=>'/admin','middleware'=>'auth'], function()
 
 
 	//For News
+    Route::get('/news/select',    'NewsController@select')->name('admin.news.select');
+    Route::get('/news/add',       'NewsController@add')->name('admin.news.add');
+    Route::get('/news/edit/{id}', 'NewsController@edit')->name('admin.news.edit');
+    Route::get('/news/delete/{id}','NewsController@delete')->name('admin.news.delete');
+    // need to submit form only when storing and updating so that this method are post
+    Route::post('/news/store',     'NewsController@store')->name('admin.news.store');
+    Route::post('/news/update/{id}','NewsController@update')->name('admin.news.update');
 
 
 
