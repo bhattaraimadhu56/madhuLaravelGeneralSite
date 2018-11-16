@@ -10,7 +10,7 @@
 					<i class="ace-icon fa fa-home home-icon"></i>
 					<a href="{{ route('admin.dashboard.index') }}">Home</a>
 				</li>
-
+s
 				<li>
 					<a href="{{ route('admin.user.select') }}">User</a></a>
 				</li>
@@ -27,17 +27,39 @@
 			</div><!-- /.nav-search -->
 		</div>
 	<div class="page-content">
+
+
 		<div class="row">
 			<div class="col-xs-12">
+    <div>
+    @foreach (['danger', 'warning', 'success', 'info'] as $key)
+        @if(Session::has($key))
+            <p class="alert alert-{{ $key }}">
+                {{ Session::get($key) }}
+            </p>
+        @endif
+        {{--Reference
+       @if(Session::has('error'))
+            <p class="alert alert-danger">{{ Session::get('error') }}</p>
+            @endif--}}
+    @endforeach
+    </div>
+                {{--For adding User Button--}}
+                <div class="pull-right font-weight-bold">
+                    <a href="{{ route('admin.user.add') }}">
+                    <b class="btn btn-sm btn-success"> <i class="  glyphicon glyphicon-plus"> Add User</i></b>
+                   </a>
+                </div>
+
 				<table id="simple-table" class="table  table-bordered table-hover">
-						<tr>
-							<th><label class="pos-rel">
+						<tr class="bg-info">
+							<th ><label class="pos-rel">
 												<input type="checkbox" class="ace" />
-												<span class="lbl"></span></th>
-							<th>Created Date</th>
-							<th>Email Address</th>
-							<th>Status</th>
-							<th>Action</th>
+                                    <span class="lbl"></span></label></th>
+							<th class="align-center">Created Date</th>
+							<th class="align-center">Email Address</th>
+							<th class="align-center">Status</th>
+							<th class="align-center">Action</th>
 						</tr>
 						{{-- Method 1 Using  $DatafromUserAnyName within with function to carry dta to view --}}
 						{{-- @foreach($DatafromUserAnyName as $key=>$a) --}}
@@ -64,23 +86,43 @@
 							 @endif
 							</td>
 							<td>
-								<div class="hidden-sm hidden-xs btn-group">
-												<button class="btn btn-xs btn-success">
-													<i class="ace-icon fa fa-check bigger-120"></i>
-												</button>
 
-												<button class="btn btn-xs btn-info">
-													<i class="ace-icon fa fa-pencil bigger-120"></i>
-												</button>
 
-												<button class="btn btn-xs btn-danger">
-													<i class="ace-icon fa fa-trash-o bigger-120"></i>
-												</button>
+                                                    <a href="{{ route('admin.category.select') }}">
+                                                        <b class="btn btn-xs btn-primary">
+                                                            <i class="glyphicon glyphicon-eye-open">View
 
-												<button class="btn btn-xs btn-warning">
-													<i class="ace-icon fa fa-flag bigger-120"></i>
-												</button>
-											</div>
+                                                            </i>
+                                                        </b>
+                                                    </a>
+
+
+
+
+                                {{--By URL method--}}
+                                <a href="{{URL::to('admin/user/edit/'.$a->id)}}">
+                                    {{--By Route method--}}
+                                                    {{--<a href="{{route('admin.user.edit'.$a->id)}}">--}}
+                                                       <b class="btn btn-xs btn-warning"> <i class="glyphicon glyphicon-pencil">Edit</i>
+                                                       </b>
+                                                    </a>
+
+
+
+
+
+                                                         {{--By URL method--}}
+														<a href="{{URL::to('admin/user/delete/'.$a->id)}}"
+                                                        {{--<a href="{{ route('admin.user.delete',['id'=>$a->id])}}"--}}
+														   onclick=" return confirm('Are you sure, You want to delete permanently?')">
+                                                            <b class="btn btn-xs btn-danger">   <i class="ace-icon fa fa-trash-o bigger-120">Delete</i>
+                                                            </b>
+                                                        </a>
+
+
+
+
+
 										</td>
 						</tr>					
 						@endforeach

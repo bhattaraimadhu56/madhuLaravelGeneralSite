@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Category\AddFormValidation;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -78,13 +79,25 @@ class CategoryController extends Controller
     {
         // submitting form so request
     }
-    public function store(Request $request)
+    public function store(AddFormValidation $request)
     {
         // submitting form so request
+
     }
-   
-    public function delete($id)
+
+    public function delete(Request $request, $id)
     {
         //
+        // deleting data using Category Model
+        //$data['row']=User::where('id',$id)->first();
+        $data=Category::where('id',$id)->first();
+        if(!$data)
+        {
+            $request->session()->flash('error_message','invalid request');
+            return redirect()->route('admin.category.select');
+        }
+        $data->delete();
+        $request->session()->flash('success_message','Data Deleted Successfully');
+
     }
 }
